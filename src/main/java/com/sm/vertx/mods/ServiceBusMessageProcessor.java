@@ -19,7 +19,7 @@ import static com.sm.vertx.mods.internal.EventProperties.*;
 /**
  * Created by sascha.moellering on 05/05/2015.
  */
-public class EventBusMessageProcessor extends BusModBase implements Handler<Message<JsonObject>> {
+public class ServiceBusMessageProcessor extends BusModBase implements Handler<Message<JsonObject>> {
 
     private Connection connection;
     private MessageProducer sender;
