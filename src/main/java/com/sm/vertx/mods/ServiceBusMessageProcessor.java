@@ -37,6 +37,10 @@ public class ServiceBusMessageProcessor extends BusModBase implements Handler<Me
         catch (NamingException | JMSException e) {
             logger.error(e.getMessage(), e);
         }
+
+        final String address = getMandatoryStringConfig("address");
+        logger.info("Registered " + ServiceBusMessageProcessor.class.getName() + " at " + address);
+        vertx.eventBus().registerHandler(address, this);
     }
 
     @Override
@@ -64,8 +68,6 @@ public class ServiceBusMessageProcessor extends BusModBase implements Handler<Me
 
     private void createProducer() throws NamingException, JMSException{
 
-        Connection con = null;
-
         Hashtable<String, String> env = new Hashtable<>();
         env.put(Context.INITIAL_CONTEXT_FACTORY, CONTEXT_FACTORY);
         env.put(Context.PROVIDER_URL, getMandatoryStringConfig(PROVIDER_URL));
@@ -76,9 +78,9 @@ public class ServiceBusMessageProcessor extends BusModBase implements Handler<Me
         queue = (Destination) context.lookup("QUEUE");
 
         logger.info("Trying to connect to " + queue.toString());
-        con = cf.createConnection();
+        connection = cf.createConnection();
 
-        con.setExceptionListener(exception -> {
+        connection.setExceptionListener(exception -> {
             logger.error("ExceptionListener triggered: " + exception.getMessage(), exception);
             try {
                 Thread.sleep(5000); // Wait 5 seconds (JMS server restarted?)
@@ -114,7 +116,7 @@ public class ServiceBusMessageProcessor extends BusModBase implements Handler<Me
             String messageId = UUID.randomUUID().toString();
             BytesMessage msg = sendSession.createBytesMessage();
             msg.writeBytes(payload);
-            msg.setJMSMessageID(messageId);
+            msg.setJMSMessageID("ID:" + messageId);
             sender.send(msg);
             logger.debug("Sent message with ID " + messageId);
 
