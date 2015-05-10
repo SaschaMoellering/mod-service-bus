@@ -25,6 +25,8 @@ public class ServiceBusMessageProcessor extends BusModBase implements Handler<Me
     private MessageProducer sender;
     private Session sendSession;
     private Destination queue;
+    private BytesMessage msg;
+    private byte[] payload;
 
     @Override
     public void start() {
@@ -60,7 +62,7 @@ public class ServiceBusMessageProcessor extends BusModBase implements Handler<Me
     @Override
     public void handle(Message<JsonObject> jsonObjectMessage) {
         try {
-            sendMessageToEventBus(jsonObjectMessage);
+            sendMessageToServiceBus(jsonObjectMessage);
         } catch (EventBusException exc) {
             logger.error(exc);
         }
@@ -94,7 +96,7 @@ public class ServiceBusMessageProcessor extends BusModBase implements Handler<Me
         sender = sendSession.createProducer(queue);
     }
 
-    protected void sendMessageToEventBus(final Message<JsonObject> event) throws EventBusException {
+    protected void sendMessageToServiceBus(final Message<JsonObject> event) throws EventBusException {
         try {
             if (!isValid(event.body().getString(PAYLOAD))) {
                 logger.error("Invalid message provided.");
@@ -105,7 +107,7 @@ public class ServiceBusMessageProcessor extends BusModBase implements Handler<Me
             logger.debug(" --- Got event " + event.toString());
             logger.debug(" --- Got body + " + object.toString());
 
-            byte[] payload = object.getBinary(PAYLOAD);
+            payload = object.getBinary(PAYLOAD);
 
             if (payload == null) {
                 logger.debug(" --- Payload is null, trying to get the payload as String");
@@ -114,11 +116,14 @@ public class ServiceBusMessageProcessor extends BusModBase implements Handler<Me
             logger.debug("Binary payload size: " + payload.length);
 
             String messageId = UUID.randomUUID().toString();
-            BytesMessage msg = sendSession.createBytesMessage();
-            msg.writeBytes(payload);
-            msg.setJMSMessageID("ID:" + messageId);
-            sender.send(msg);
-            logger.debug("Sent message with ID " + messageId);
+            msg = sendSession.createBytesMessage();
+
+            if (msg != null) {
+                msg.writeBytes(payload);
+                msg.setJMSMessageID("ID:" + messageId);
+                sender.send(msg);
+                logger.debug("Sent message with ID " + messageId);
+            }
 
             sendOK(event);
         }
