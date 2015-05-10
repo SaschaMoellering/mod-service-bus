@@ -37,9 +37,6 @@ public class ByteArraySerializerIT extends TestVerticle {
     @Override
     public void start() {
 
-        System.setProperty("provider.url", "file:///tmp/servicebus.properties");
-        System.setProperty("vertx.modulename", "com.sm.vertx~mod-service-bus~1.0.0");
-
         JsonObject config = new JsonObject();
         config.putString("address", ADDRESS);
         config.putString("provider.url", System.getProperty("provider.url"));
@@ -50,7 +47,6 @@ public class ByteArraySerializerIT extends TestVerticle {
             ByteArraySerializerIT.super.start();
         });
     }
-
 
     @Test
     public void sendMessage() throws Exception {

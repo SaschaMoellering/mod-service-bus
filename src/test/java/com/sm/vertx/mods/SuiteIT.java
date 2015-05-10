@@ -8,7 +8,8 @@ import org.junit.runners.Suite;
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
         ServiceBusMessageProcessorTest.class,
-        ByteArraySerializerIT.class
+        ByteArraySerializerIT.class,
+        ServiceBusMessageProcessorIT.class
 })
 public class SuiteIT {
 }

@@ -1,5 +1,7 @@
 package com.sm.vertx.mods;
 
+import com.googlecode.junittoolbox.PollingWait;
+import com.googlecode.junittoolbox.RunnableAssert;
 import com.sm.vertx.mods.internal.EventProperties;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
@@ -8,9 +10,6 @@ import org.vertx.java.core.Handler;
 import org.vertx.java.core.eventbus.Message;
 import org.vertx.java.core.json.JsonObject;
 import org.vertx.testtools.TestVerticle;
-
-import com.googlecode.junittoolbox.PollingWait;
-import com.googlecode.junittoolbox.RunnableAssert;
 
 import javax.jms.*;
 import javax.naming.Context;
@@ -28,7 +27,7 @@ import static org.vertx.testtools.VertxAssert.testComplete;
 
 /**
  * Created by sascha.moellering on 10/05/2015.
- *
+ * <p/>
  * THIS TEST ONLY WORKS WITH A SERVICE BUS QUEUE
  * AND PROPERTIES.
  */
@@ -46,14 +45,10 @@ public class ServiceBusMessageProcessorIT extends TestVerticle implements Messag
 
     public void before() {
         try {
-            System.setProperty("provider.url", "file:///tmp/servicebus.properties");
-            System.setProperty("vertx.modulename", "com.sm.vertx~mod-service-bus~1.0.0");
-
             providerUrl = System.getProperty("provider.url");
 
             consumeMessages();
-        }
-        catch (Exception exc) {
+        } catch (Exception exc) {
             exc.printStackTrace();
         }
     }
@@ -130,8 +125,8 @@ public class ServiceBusMessageProcessorIT extends TestVerticle implements Messag
     public void onMessage(javax.jms.Message message) {
         try {
             logger.info("Received message with JMSMessageID = " + message.getJMSMessageID());
-            BytesMessage bytesMessage = (BytesMessage)message;
-            byte data[] = new byte[(int)bytesMessage.getBodyLength()];
+            BytesMessage bytesMessage = (BytesMessage) message;
+            byte data[] = new byte[(int) bytesMessage.getBodyLength()];
             bytesMessage.readBytes(data);
             logger.info("Payload: " + new String(data));
 

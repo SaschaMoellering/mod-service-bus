@@ -13,8 +13,9 @@ import javax.naming.NamingException;
 import java.util.Hashtable;
 import java.util.UUID;
 
-import static com.sm.vertx.mods.internal.Constants.*;
-import static com.sm.vertx.mods.internal.EventProperties.*;
+import static com.sm.vertx.mods.internal.Constants.CONTEXT_FACTORY;
+import static com.sm.vertx.mods.internal.Constants.PROVIDER_URL;
+import static com.sm.vertx.mods.internal.EventProperties.PAYLOAD;
 
 /**
  * Created by sascha.moellering on 05/05/2015.
@@ -34,9 +35,7 @@ public class ServiceBusMessageProcessor extends BusModBase implements Handler<Me
 
         try {
             createProducer();
-        }
-
-        catch (NamingException | JMSException e) {
+        } catch (NamingException | JMSException e) {
             logger.error(e.getMessage(), e);
         }
 
@@ -52,9 +51,7 @@ public class ServiceBusMessageProcessor extends BusModBase implements Handler<Me
         try {
             if (connection != null)
                 connection.close();
-        }
-
-        catch (JMSException e) {
+        } catch (JMSException e) {
             logger.error(e.toString(), e);
         }
     }
@@ -68,7 +65,7 @@ public class ServiceBusMessageProcessor extends BusModBase implements Handler<Me
         }
     }
 
-    private void createProducer() throws NamingException, JMSException{
+    private void createProducer() throws NamingException, JMSException {
 
         Hashtable<String, String> env = new Hashtable<>();
         env.put(Context.INITIAL_CONTEXT_FACTORY, CONTEXT_FACTORY);
@@ -126,9 +123,7 @@ public class ServiceBusMessageProcessor extends BusModBase implements Handler<Me
             }
 
             sendOK(event);
-        }
-
-        catch (JMSException exc) {
+        } catch (JMSException exc) {
             logger.error(exc);
             sendError(event, exc.toString(), exc);
         }

@@ -4,13 +4,13 @@
         <Property name="log-path">/srv/log</Property>
     </Properties>
     <Appenders>
-      <RollingFile name="file-log" fileName="${log-path}/server.log" filePattern="${log-path}/server-%i.log">
-          <Policies>
-              <SizeBasedTriggeringPolicy size="20MB"/>
-          </Policies>
-          <DefaultRolloverStrategy max="20"/>
-          <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
-      </RollingFile>
+        <RollingFile name="file-log" fileName="${log-path}/server.log" filePattern="${log-path}/server-%i.log">
+            <Policies>
+                <SizeBasedTriggeringPolicy size="20MB"/>
+            </Policies>
+            <DefaultRolloverStrategy max="20"/>
+            <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
+        </RollingFile>
         <Console name="Console" target="SYSTEM_OUT">
             <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
         </Console>
