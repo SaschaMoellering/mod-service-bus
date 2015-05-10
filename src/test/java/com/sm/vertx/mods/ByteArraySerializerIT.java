@@ -37,11 +37,13 @@ public class ByteArraySerializerIT extends TestVerticle {
     @Override
     public void start() {
 
+        System.setProperty("provider.url", "file:///tmp/servicebus.properties");
+        System.setProperty("vertx.modulename", "com.sm.vertx~mod-service-bus~1.0.0");
+
         JsonObject config = new JsonObject();
         config.putString("address", ADDRESS);
-        config.putString("provider.url", "file:///tmp/servicebus.properties");
+        config.putString("provider.url", System.getProperty("provider.url"));
 
-        System.setProperty("vertx.modulename", "com.sm.vertx~mod-service-bus~1.0.0");
         container.deployModule(System.getProperty("vertx.modulename"), config, asyncResult -> {
             assertTrue(asyncResult.succeeded());
             assertNotNull("DeploymentID should not be null", asyncResult.result());
