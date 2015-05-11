@@ -1,14 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.sm.vertx</groupId>
     <artifactId>mod-service-bus</artifactId>
     <packaging>jar</packaging>
-    <version>1.0.0</version>
+    <version>1.0.0-SNAPSHOT</version>
     <name>Project - mod-service-bus</name>
-    <url>http://maven.apache.org</url>
+    <description>Azure Service Bus module for Vert.x framework</description>
+    <url>https://github.com/SaschaMoellering/mod-service-bus</url>
+
+    <licenses>
+        <license>
+            <name>Apache License 2.0</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+
+    <scm>
+        <connection>scm:git:git@github.com:SaschaMoellering/mod-service-bus.git</connection>
+        <developerConnection>scm:git:git@github.com:SaschaMoellering/mod-service-bus.git</developerConnection>
+        <url>git@github.com:SaschaMoellering/mod-service-bus.git</url>
+        <tag>HEAD</tag>
+    </scm>
+
+    <developers>
+        <developer>
+            <name>Sascha Möllering</name>
+            <email>sascha.moellering@zanox.com</email>
+            <organization>zanox AG</organization>
+            <url>http://www.zanox.com</url>
+        </developer>
+    </developers>
 
     <parent>
         <groupId>org.sonatype.oss</groupId>
@@ -18,6 +42,7 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <skipSigning>true</skipSigning>
 
         <!-- Set pullInDeps to true if you want any modules specified in the 'includes' and 'deploys' fields
         in your mod.json to be automatically pulled in during packaging and added inside your module. Doing this means your
@@ -52,7 +77,11 @@
         <maven.javadoc.plugin.version>2.9</maven.javadoc.plugin.version>
         <maven.dependency.plugin.version>2.7</maven.dependency.plugin.version>
         <version.mockito>1.9.5</version.mockito>
-
+        <maven.javadoc.plugin.version>2.9</maven.javadoc.plugin.version>
+        <maven.dependency.plugin.version>2.7</maven.dependency.plugin.version>
+        <maven.source.plugin.version>2.2.1</maven.source.plugin.version>
+        <maven.gpg.plugin.version>1.4</maven.gpg.plugin.version>
+        <maven.release.plugin.version>2.4.2</maven.release.plugin.version>
     </properties>
 
     <repositories>
@@ -326,8 +355,70 @@
                     </execution>
                 </executions>
             </plugin>
+
+            <!-- Bundle sources -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <version>${maven.source.plugin.version}</version>
+                <executions>
+                    <execution>
+                        <id>attach-sources</id>
+                        <goals>
+                            <goal>jar-no-fork</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <!-- Generating Javadoc -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>attach-javadocs</id>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <!-- GPG Signing during verify phase -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-gpg-plugin</artifactId>
+                <version>${maven.gpg.plugin.version}</version>
+                <executions>
+                    <execution>
+                        <id>sign-artifacts</id>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>sign</goal>
+                        </goals>
+                        <configuration>
+                            <skip>${skipSigning}</skip>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <!-- Releasing -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-release-plugin</artifactId>
+                <version>${maven.release.plugin.version}</version>
+                <configuration>
+                    <autoVersionSubmodules>true</autoVersionSubmodules>
+                    <useReleaseProfile>false</useReleaseProfile>
+                    <releaseProfiles>release</releaseProfiles>
+                    <goals>deploy</goals>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
+
     <reporting>
         <plugins>
             <plugin>
@@ -345,4 +436,21 @@
             </plugin>
         </plugins>
     </reporting>
+
+    <profiles>
+        <profile>
+            <id>develop</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+        </profile>
+
+        <profile>
+            <id>release</id>
+            <properties>
+                <skipSigning>false</skipSigning>
+            </properties>
+        </profile>
+    </profiles>
+
 </project>
