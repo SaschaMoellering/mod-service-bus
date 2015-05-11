@@ -5,7 +5,7 @@
     <groupId>com.sm.vertx</groupId>
     <artifactId>mod-service-bus</artifactId>
     <packaging>jar</packaging>
-    <version>1.0.0-SNAPSHOT</version>
+    <version>1.0.0</version>
     <name>Project - mod-service-bus</name>
     <description>Azure Service Bus module for Vert.x framework</description>
     <url>https://github.com/SaschaMoellering/mod-service-bus</url>
@@ -83,6 +83,17 @@
         <maven.gpg.plugin.version>1.4</maven.gpg.plugin.version>
         <maven.release.plugin.version>2.4.2</maven.release.plugin.version>
     </properties>
+
+    <distributionManagement>
+        <snapshotRepository>
+            <id>ossrh</id>
+            <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
+        </snapshotRepository>
+        <repository>
+            <id>ossrh</id>
+            <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+        </repository>
+    </distributionManagement>
 
     <repositories>
         <repository>
