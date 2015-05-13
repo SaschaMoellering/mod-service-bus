@@ -1,4 +1,4 @@
-package com.sm.vertx.mods;
+package io.autoscaling.mods;
 
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;

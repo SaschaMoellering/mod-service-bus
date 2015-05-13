@@ -1,8 +1,8 @@
-package com.sm.vertx.mods;
+package io.autoscaling.mods;
 
 import com.googlecode.junittoolbox.PollingWait;
 import com.googlecode.junittoolbox.RunnableAssert;
-import com.sm.vertx.mods.internal.EventProperties;
+import io.autoscaling.mods.internal.EventProperties;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.junit.Test;

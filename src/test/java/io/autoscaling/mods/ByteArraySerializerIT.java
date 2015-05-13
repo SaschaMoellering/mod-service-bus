@@ -13,9 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.sm.vertx.mods;
+package io.autoscaling.mods;
 
-import com.sm.vertx.mods.internal.EventProperties;
+import io.autoscaling.mods.internal.EventProperties;
 import org.junit.Test;
 import org.vertx.java.core.Handler;
 import org.vertx.java.core.eventbus.Message;

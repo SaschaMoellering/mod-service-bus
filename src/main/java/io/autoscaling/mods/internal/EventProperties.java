@@ -1,4 +1,4 @@
-package com.sm.vertx.mods.internal;
+package io.autoscaling.mods.internal;
 
 /**
  * Created by sascha.moellering on 05/05/2015.

@@ -1,5 +1,6 @@
-package com.sm.vertx.mods;
+package io.autoscaling.mods;
 
+import io.autoscaling.mods.ServiceBusMessageProcessor;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;

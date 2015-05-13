@@ -1,4 +1,4 @@
-package com.sm.vertx.mods.exception;
+package io.autoscaling.mods.exception;
 
 /**
  * Created by sascha.moellering on 05/05/2015.

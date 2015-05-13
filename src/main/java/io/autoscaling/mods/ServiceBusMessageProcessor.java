@@ -1,6 +1,6 @@
-package com.sm.vertx.mods;
+package io.autoscaling.mods;
 
-import com.sm.vertx.mods.exception.EventBusException;
+import io.autoscaling.mods.exception.EventBusException;
 import org.vertx.java.busmods.BusModBase;
 import org.vertx.java.core.Handler;
 import org.vertx.java.core.eventbus.Message;
@@ -13,9 +13,9 @@ import javax.naming.NamingException;
 import java.util.Hashtable;
 import java.util.UUID;
 
-import static com.sm.vertx.mods.internal.Constants.CONTEXT_FACTORY;
-import static com.sm.vertx.mods.internal.Constants.PROVIDER_URL;
-import static com.sm.vertx.mods.internal.EventProperties.PAYLOAD;
+import static io.autoscaling.mods.internal.Constants.CONTEXT_FACTORY;
+import static io.autoscaling.mods.internal.Constants.PROVIDER_URL;
+import static io.autoscaling.mods.internal.EventProperties.PAYLOAD;
 
 /**
  * Created by sascha.moellering on 05/05/2015.
