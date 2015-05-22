@@ -81,7 +81,7 @@
     <distributionManagement>
         <repository>
             <id>bintray</id>
-            <url>https://api.bintray.com/maven/saschamoellering/mod-service-bus</url>
+            <url>https://api.bintray.com/maven/saschamoellering/io.autoscaling/mod-service-bus</url>
         </repository>
     </distributionManagement>
 
