@@ -5,7 +5,7 @@
     <groupId>io.autoscaling</groupId>
     <artifactId>mod-service-bus</artifactId>
     <packaging>jar</packaging>
-    <version>1.0.4-SNAPSHOT</version>
+    <version>1.0.7-SNAPSHOT</version>
     <name>Project - mod-service-bus</name>
     <description>Azure Service Bus module for Vert.x framework</description>
     <url>https://github.com/SaschaMoellering/mod-service-bus</url>
@@ -33,12 +33,6 @@
             <url>http://www.zanox.com</url>
         </developer>
     </developers>
-
-    <parent>
-        <groupId>org.sonatype.oss</groupId>
-        <artifactId>oss-parent</artifactId>
-        <version>7</version>
-    </parent>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -81,24 +75,15 @@
         <maven.dependency.plugin.version>2.7</maven.dependency.plugin.version>
         <maven.source.plugin.version>2.2.1</maven.source.plugin.version>
         <maven.gpg.plugin.version>1.4</maven.gpg.plugin.version>
-        <maven.release.plugin.version>2.4.2</maven.release.plugin.version>
+        <maven.release.plugin.version>2.5</maven.release.plugin.version>
     </properties>
 
     <distributionManagement>
         <repository>
             <id>bintray</id>
-            <url>https://api.bintray.com/maven/saschamoellering/mod-service-bus</url>
+            <url>https://api.bintray.com/maven/saschamoellering/mod-service-bus/mod-service-bus</url>
         </repository>
     </distributionManagement>
-
-    <!--
-    <repositories>
-        <repository>
-            <id>sonatype-nexus-snapshots</id>
-            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
-        </repository>
-    </repositories>
--->
 
     <dependencies>
         <!--Vertx provided dependencies-->
@@ -455,9 +440,6 @@
 
         <profile>
             <id>release</id>
-            <properties>
-                <skipSigning>false</skipSigning>
-            </properties>
             <build>
                 <plugins>
                     <plugin>
