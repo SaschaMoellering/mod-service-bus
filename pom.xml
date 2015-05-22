@@ -5,7 +5,7 @@
     <groupId>io.autoscaling</groupId>
     <artifactId>mod-service-bus</artifactId>
     <packaging>jar</packaging>
-    <version>1.0.10</version>
+    <version>1.0.11-SNAPSHOT</version>
     <name>Project - mod-service-bus</name>
     <description>Azure Service Bus module for Vert.x framework</description>
     <url>https://github.com/SaschaMoellering/mod-service-bus</url>
@@ -22,7 +22,7 @@
         <connection>scm:git:git@github.com:SaschaMoellering/mod-service-bus.git</connection>
         <developerConnection>scm:git:git@github.com:SaschaMoellering/mod-service-bus.git</developerConnection>
         <url>git@github.com:SaschaMoellering/mod-service-bus.git</url>
-        <tag>mod-service-bus-1.0.10</tag>
+        <tag>HEAD</tag>
     </scm>
 
     <developers>
